@@ -1,0 +1,79 @@
+---
+import { getLaunchDate } from '../lib/config';
+const launch = getLaunchDate();
+const launchIso = launch.toISOString();
+const launchNice = launch.toLocaleDateString('en-GB', {
+  weekday: 'long',
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+---
+<section class="relative z-10 max-w-3xl mx-auto px-6 py-8" aria-label="Launch countdown">
+  <p class="hand text-2xl text-[color:var(--color-rust)] text-center mb-3">
+    brewing in
+  </p>
+
+  <div
+    id="mornings-countdown"
+    data-launch={launchIso}
+    class="grid grid-cols-4 gap-3 md:gap-5 text-center"
+  >
+    {[
+      ['days', 'days'],
+      ['hours', 'hours'],
+      ['minutes', 'mins'],
+      ['seconds', 'secs'],
+    ].map(([key, label]) => (
+      <div class="wobble-sm bg-[color:var(--color-cream-dark)]/60 py-4 md:py-6">
+        <div
+          class="tile-num display text-4xl md:text-6xl text-[color:var(--color-ink)]"
+          data-unit={key}
+        >
+          --
+        </div>
+        <div class="hand text-base md:text-lg text-[color:var(--color-ink-soft)] mt-1">{label}</div>
+      </div>
+    ))}
+  </div>
+
+  <p class="text-center mt-6 text-[color:var(--color-ink-soft)]">
+    launching <span class="hand text-xl text-[color:var(--color-rust)]">{launchNice}</span>
+  </p>
+</section>
+
+<script is:inline>
+  (function () {
+    const root = document.getElementById('mornings-countdown');
+    if (!root) return;
+    const launch = new Date(root.dataset.launch || '').getTime();
+    if (!launch) return;
+
+    const pad = (n) => String(Math.max(0, n)).padStart(2, '0');
+
+    function tick() {
+      const now = Date.now();
+      const diff = Math.max(0, launch - now);
+      const days = Math.floor(diff / 86400000);
+      const hours = Math.floor((diff % 86400000) / 3600000);
+      const minutes = Math.floor((diff % 3600000) / 60000);
+      const seconds = Math.floor((diff % 60000) / 1000);
+
+      const set = (u, v) => {
+        const el = root.querySelector('[data-unit="' + u + '"]');
+        if (el) el.textContent = pad(v);
+      };
+      set('days', days);
+      set('hours', hours);
+      set('minutes', minutes);
+      set('seconds', seconds);
+
+      if (diff === 0) {
+        root.querySelectorAll('[data-unit]').forEach((el) => (el.textContent = '00'));
+      }
+    }
+
+    tick();
+    setInterval(tick, 1000);
+  })();
+</script>

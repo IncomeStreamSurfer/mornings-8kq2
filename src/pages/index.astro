@@ -1,0 +1,83 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Countdown from '../components/Countdown.astro';
+import Waitlist from '../components/Waitlist.astro';
+import CupMark from '../components/CupMark.astro';
+---
+<Layout>
+  <main class="relative min-h-screen flex flex-col">
+    <header class="relative z-10 px-6 pt-7 pb-2 flex items-center justify-between max-w-5xl mx-auto w-full">
+      <span class="display text-2xl md:text-3xl">
+        mornings<span class="text-[color:var(--color-rust)]">.</span>
+      </span>
+      <span class="hand text-lg md:text-xl text-[color:var(--color-ink-soft)]">
+        coming soon
+      </span>
+    </header>
+
+    <section class="relative z-10 flex-1 flex flex-col items-center justify-center px-6 pt-8 pb-4 text-center">
+      <CupMark />
+
+      <p class="hand text-3xl md:text-4xl text-[color:var(--color-rust)] mt-2">
+        something slow. something warm.
+      </p>
+
+      <h1 class="display text-6xl md:text-8xl leading-[0.95] mt-4 max-w-3xl">
+        A better<br />
+        <span class="italic">first cup.</span>
+      </h1>
+
+      <p class="mt-6 max-w-xl text-lg md:text-xl text-[color:var(--color-ink-soft)] leading-relaxed">
+        Mornings is a small-batch coffee roastery we're building by hand — single-origin
+        beans, tiny roasts, and a launch that's just around the corner.
+      </p>
+
+      <a
+        href="#waitlist"
+        class="wobble-btn mt-8 inline-block bg-[color:var(--color-ink)] text-[color:var(--color-cream)] px-7 py-3 text-lg hand hover:bg-[color:var(--color-rust)] transition-colors"
+      >
+        join the waitlist ↓
+      </a>
+    </section>
+
+    <Countdown />
+
+    <Waitlist />
+
+    <section class="relative z-10 max-w-2xl mx-auto px-6 py-12 text-center">
+      <h2 class="hand text-3xl text-[color:var(--color-rust)] mb-3">the story, briefly</h2>
+      <p class="display text-2xl md:text-3xl italic leading-snug text-[color:var(--color-ink)]">
+        "The first cup sets the tone for the whole day."
+      </p>
+      <p class="mt-6 text-lg text-[color:var(--color-ink-soft)] leading-relaxed">
+        We source from farms we've actually visited. We roast in 5kg batches. We ship within
+        48 hours of the roast — because coffee is freshest in the first two weeks, and you
+        deserve the best one. That's the whole idea.
+      </p>
+    </section>
+
+    <section class="relative z-10 max-w-4xl mx-auto px-6 pb-14 grid grid-cols-1 md:grid-cols-3 gap-6">
+      {[
+        { h: '01', t: 'single-origin', d: 'traceable to one farm, one lot, one harvest.' },
+        { h: '02', t: 'tiny batches', d: 'roasted in 5kg lots the week you order.' },
+        { h: '03', t: 'ships in 48h', d: 'from roaster to letterbox before it cools off.' },
+      ].map((p) => (
+        <div class="wobble-sm bg-[color:var(--color-cream-dark)]/40 p-6 text-center">
+          <div class="hand text-5xl text-[color:var(--color-rust)] leading-none">{p.h}</div>
+          <div class="display text-xl mt-2">{p.t}</div>
+          <p class="text-[color:var(--color-ink-soft)] mt-2 text-base">{p.d}</p>
+        </div>
+      ))}
+    </section>
+
+    <footer class="relative z-10 px-6 py-10 border-t-2 border-dashed border-[color:var(--color-ink)]/20 mt-auto">
+      <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3 text-sm text-[color:var(--color-ink-soft)]">
+        <div class="flex items-center gap-2">
+          <span class="display text-lg">mornings<span class="text-[color:var(--color-rust)]">.</span></span>
+          <span class="hand text-lg">— see you soon</span>
+        </div>
+        <div>© {new Date().getFullYear()} Mornings Coffee · built by hand</div>
+      </div>
+    </footer>
+  </main>
+</Layout>
