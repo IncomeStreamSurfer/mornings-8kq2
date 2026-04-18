@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cream: #f5ebdc;
+  --color-cream-dark: #ebdcc4;
+  --color-ink: #3a2618;
+  --color-ink-soft: #5a3c28;
+  --color-sand: #d9c4a3;
+  --color-rust: #a85a3a;
+
+  --font-display: "Fraunces", Georgia, serif;
+  --font-hand: "Caveat", cursive;
+  --font-body: "Fraunces", Georgia, serif;
+}
+
+html {
+  background: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background-image:
+    radial-gradient(circle at 10% 10%, rgba(168, 90, 58, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(58, 38, 24, 0.06) 0%, transparent 40%);
+  background-attachment: fixed;
+}
+
+.hand {
+  font-family: var(--font-hand);
+  font-weight: 600;
+}
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.grain::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.23 0 0 0 0 0.15 0 0 0 0 0.09 0 0 0 0.18 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  opacity: 0.35;
+  mix-blend-mode: multiply;
+  z-index: 1;
+}
+
+.wobble {
+  border: 2px solid var(--color-ink);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+}
+
+.wobble-sm {
+  border: 2px solid var(--color-ink);
+  border-radius: 35px 8px 30px 8px / 8px 30px 8px 35px;
+}
+
+.wobble-btn {
+  border: 2px solid var(--color-ink);
+  border-radius: 30px 6px 28px 6px / 6px 28px 6px 30px;
+}
+
+@keyframes steam {
+  0% { transform: translateY(0) scale(1); opacity: 0.0; }
+  20% { opacity: 0.6; }
+  100% { transform: translateY(-40px) scale(1.4); opacity: 0; }
+}
+.steam-line {
+  animation: steam 3.2s ease-out infinite;
+  transform-origin: center bottom;
+}
+.steam-line.d1 { animation-delay: 0s; }
+.steam-line.d2 { animation-delay: 1s; }
+.steam-line.d3 { animation-delay: 2s; }
+
+.tile-num {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
